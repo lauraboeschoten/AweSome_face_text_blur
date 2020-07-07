@@ -35,11 +35,14 @@ path_list_mp4 = [os.path.join(dirpath, filename) for dirpath, _,
                                                      filenames in os.walk(directory) for filename in filenames if
                  filename.endswith('.mp4')]
 
+
 for i in range(len(path_list_mp4)):
 
     cap = cv.VideoCapture(path_list_mp4[i])
     total_frames = int(cap.get(cv.CAP_PROP_FRAME_COUNT))
     img_array = []
+    net = cv.dnn.readNet(
+        "C:/Users/F112974/surfdrive/Onderzoek/AweSome/tests/test_text_blur/frozen_east_text_detection.pb")
 
     for g in range(total_frames):
         cap.set(1, g - 1);
@@ -52,7 +55,7 @@ for i in range(len(path_list_mp4)):
         # blur text on frame
         frame_bt = mfbt.find_text_and_blur(
             frame_bf,
-            eastPath="C:/Users/F112974/surfdrive/Onderzoek/AweSome/tests/test_text_blur/frozen_east_text_detection.pb",
+            net,
             min_confidence=0.5)
 
         img_array.append(frame_bt)

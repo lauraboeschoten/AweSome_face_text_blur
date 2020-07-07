@@ -4,7 +4,7 @@ import argparse
 import time
 import cv2
 
-def find_text_and_blur(frame, eastPath, min_confidence):
+def find_text_and_blur(frame, net, min_confidence):
 
     # load the input image and grab the image dimensions
     image = cv2.cvtColor(np.array(frame), cv2.COLOR_RGB2BGR)
@@ -27,7 +27,7 @@ def find_text_and_blur(frame, eastPath, min_confidence):
         "feature_fusion/Conv_7/Sigmoid",
         "feature_fusion/concat_3"]
 
-    net = cv2.dnn.readNet(eastPath)
+    #net = cv2.dnn.readNet(eastPath)
     # construct a blob from the image and then perform a forward pass of
     # the model to obtain the two output layer sets
     blob = cv2.dnn.blobFromImage(image, 1.0, (W, H),
